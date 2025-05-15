@@ -1,0 +1,52 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonCaps.Api", "CartonCaps.Api\CartonCaps.Api.csproj", "{CAB92B6B-52B4-49C9-AEE2-5DB14B283429}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonCaps.Core", "CartonCaps.Core\CartonCaps.Core.csproj", "{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonCaps.Persistence", "CartonCaps.Persistence\CartonCaps.Persistence.csproj", "{5323EF46-CA13-420B-8CD9-93F2A86C871A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartonCaps.Tests", "CartonCaps.Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartonCaps", "CartonCaps", "{FCFDA053-304D-4DFB-9D0B-83A2E8C5344A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonCaps.UnitTests", "CartonCaps.UnitTests\CartonCaps.UnitTests.csproj", "{B2C54555-51E8-453D-B7E6-102F26F5E42D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAB92B6B-52B4-49C9-AEE2-5DB14B283429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB92B6B-52B4-49C9-AEE2-5DB14B283429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB92B6B-52B4-49C9-AEE2-5DB14B283429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB92B6B-52B4-49C9-AEE2-5DB14B283429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5323EF46-CA13-420B-8CD9-93F2A86C871A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5323EF46-CA13-420B-8CD9-93F2A86C871A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5323EF46-CA13-420B-8CD9-93F2A86C871A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5323EF46-CA13-420B-8CD9-93F2A86C871A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2C54555-51E8-453D-B7E6-102F26F5E42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C54555-51E8-453D-B7E6-102F26F5E42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C54555-51E8-453D-B7E6-102F26F5E42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C54555-51E8-453D-B7E6-102F26F5E42D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CAB92B6B-52B4-49C9-AEE2-5DB14B283429} = {FCFDA053-304D-4DFB-9D0B-83A2E8C5344A}
+		{7ADC909C-805B-43FA-B0EF-B6A383AAFF4F} = {FCFDA053-304D-4DFB-9D0B-83A2E8C5344A}
+		{5323EF46-CA13-420B-8CD9-93F2A86C871A} = {FCFDA053-304D-4DFB-9D0B-83A2E8C5344A}
+		{B2C54555-51E8-453D-B7E6-102F26F5E42D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D23F2D1-3BCA-40B8-916B-FCA42A1246DE}
+	EndGlobalSection
+EndGlobal
