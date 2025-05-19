@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Nodes;
 using CartonCaps.Api.Controllers.Messages;
+using CartonCaps.Core.Services.DeferredDeepLinking;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CartonCaps.Api.Controllers
@@ -10,9 +11,11 @@ namespace CartonCaps.Api.Controllers
     {
         int MockUserId = 555;
 
-        public UserController()
-        {
+        IDeferredLinkService deferredLinkService;
 
+        public UserController(IDeferredLinkService deferredLinkService)
+        {
+            this.deferredLinkService = deferredLinkService;
         }
 
 
@@ -53,7 +56,8 @@ namespace CartonCaps.Api.Controllers
             return Ok(new ReferralCodeAndLinkResponse()
             {
                 ReferralCode = "123ABC",
-                DeferredLink = "https://deferred.app/destination"
+
+                DeferredLink = await deferredLinkService.CreateReferralDeepLink("123ABC", cancellationToken)
             });
         }
     }

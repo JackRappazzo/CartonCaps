@@ -13,7 +13,7 @@ namespace CartonCaps.Core.Services.DeferredLinking
     {
         const int ShortCodeLength = 8;
 
-        ConcurrentDictionary<string, DeferredLink?> links = new ConcurrentDictionary<string, DeferredLink?>();
+        private static ConcurrentDictionary<string, DeferredLink?> links = new ConcurrentDictionary<string, DeferredLink?>();
         IShortCodeGenerator codeGenerator;
 
         const string baseUrl = "https://cartoncaps.com/app/{0}";
