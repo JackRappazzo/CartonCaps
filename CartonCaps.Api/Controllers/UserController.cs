@@ -40,5 +40,21 @@ namespace CartonCaps.Api.Controllers
             });
             
         }
+
+        /// <summary>
+        /// Returns the current referral code as well as a deferred link for the referral registration flow
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        //[Authorize]
+        [HttpGet("referralCode")]
+        public async Task<IActionResult> GetReferralCodeAndLink(CancellationToken cancellationToken)
+        {
+            return Ok(new ReferralCodeAndLinkResponse()
+            {
+                ReferralCode = "123ABC",
+                DeferredLink = "https://deferred.app/destination"
+            });
+        }
     }
 }
