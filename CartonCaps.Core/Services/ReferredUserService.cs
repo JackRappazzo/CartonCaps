@@ -10,6 +10,5 @@ namespace CartonCaps.Core.Services
     {
 
         public ReferredUserService() { }
-        public 
     }
 }
