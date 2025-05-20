@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using CartonCaps.Api.Controllers.Messages;
 using CartonCaps.Core.Services.DeferredDeepLinking;
+using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +11,13 @@ namespace CartonCaps.Api.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        int MockUserId = 555;
-
         IDeferredLinkService deferredLinkService;
+        IReferredUserService referredUserService;
 
-        public UserController(IDeferredLinkService deferredLinkService)
+        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService) 
         {
             this.deferredLinkService = deferredLinkService;
+            this.referredUserService = referredUserService;
         }
 
 
@@ -36,13 +37,14 @@ namespace CartonCaps.Api.Controllers
             //Mock for User.Identity.GetUserId()
             var userId = CartonCapsUser.MockLoggedInUserId;
 
+            var referredUsers = await referredUserService.GetUserReferralsById(userId, pageStart, numberPerPage, cancellationToken);
 
             return Ok(new ReferredUsersResponse()
             {
-                Items = new List<ReferredUser>(),
+                Items = referredUsers.Referrals,
                 NumberPerPage = numberPerPage,
                 PageStart = pageStart,
-                Total = 100
+                Total = referredUsers.Total
             });
             
         }
