@@ -12,14 +12,12 @@ namespace CartonCaps.Api.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        private readonly IDeferredLinkService deferredLinkService;
         private readonly IReferredUserService referredUserService;
         private readonly IReferralLinkService referralCodeService;
         private readonly IUserRepository userRepository;
 
-        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService, IReferralLinkService referralCodeService, IUserRepository userRepository)
-        {
-            this.deferredLinkService = deferredLinkService;
+        public UserController(IReferredUserService referredUserService, IReferralLinkService referralCodeService, IUserRepository userRepository)
+        {           
             this.referredUserService = referredUserService;
             this.userRepository = userRepository;
             this.referralCodeService = referralCodeService;
@@ -68,8 +66,6 @@ namespace CartonCaps.Api.Controllers
             var userId = CartonCapsUser.MockLoggedInUserId;
 
             var user = await userRepository.FetchUserById(userId, cancellationToken);
-
-
 
             return Ok(new ReferralCodeAndLinkResponse()
             {
