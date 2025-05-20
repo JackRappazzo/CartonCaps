@@ -14,7 +14,7 @@ namespace CartonCaps.Api.Controllers
         IDeferredLinkService deferredLinkService;
         IReferredUserService referredUserService;
 
-        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService) 
+        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService)
         {
             this.deferredLinkService = deferredLinkService;
             this.referredUserService = referredUserService;
@@ -29,10 +29,10 @@ namespace CartonCaps.Api.Controllers
         /// <param name="numberPerPage"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        
+
         //[Authorize]
         [HttpGet("referredUsers")]
-        public async Task<IActionResult> GetReferredUsers(int pageStart, int numberPerPage, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetReferredUsers(int pageStart = 0, int numberPerPage = 10, CancellationToken cancellationToken = default)
         {
             //Mock for User.Identity.GetUserId()
             var userId = CartonCapsUser.MockLoggedInUserId;
@@ -46,7 +46,7 @@ namespace CartonCaps.Api.Controllers
                 PageStart = pageStart,
                 Total = referredUsers.Total
             });
-            
+
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CartonCaps.Persistence.Models;
+using Newtonsoft.Json;
 
 namespace CartonCaps.Api.Controllers.Messages
 {
@@ -6,7 +7,7 @@ namespace CartonCaps.Api.Controllers.Messages
     public class ReferredUsersResponse : PagedResponse<ReferredUser>
     {
 
-        [JsonProperty("RefferedUsers")]
+        [JsonProperty("refferedUsers")]
         public override IEnumerable<ReferredUser> Items { get => base.Items; set => base.Items = value; }
 
     }
