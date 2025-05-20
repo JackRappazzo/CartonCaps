@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Nodes;
 using CartonCaps.Api.Controllers.Messages;
 using CartonCaps.Core.Services.DeferredDeepLinking;
+using CartonCaps.Persistence.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CartonCaps.Api.Controllers
@@ -33,6 +34,8 @@ namespace CartonCaps.Api.Controllers
         public async Task<IActionResult> GetReferredUsers(int pageStart, int numberPerPage, CancellationToken cancellationToken)
         {
             //Mock for User.Identity.GetUserId()
+            var userId = CartonCapsUser.MockLoggedInUserId;
+
 
             return Ok(new ReferredUsersResponse()
             {

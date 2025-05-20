@@ -9,7 +9,7 @@ namespace CartonCaps.Persistence.Repositories
 {
     public class UserRepository
     {
-        private const string MockLoggedInUserId = "2a154b8b-9228-4701-9e57-b538a66796e0";
+        
         protected static List<CartonCapsUser> userStore;
 
 
@@ -23,7 +23,7 @@ namespace CartonCaps.Persistence.Repositories
                {
                 new CartonCapsUser()
                 {
-                    Id = Guid.Parse(MockLoggedInUserId),
+                    Id = CartonCapsUser.MockLoggedInUserId,
                     FirstName = "Lorie",
                     LastName = "Ipsum",
                     DateOfBirth = new DateOnly(2000, 1,1),

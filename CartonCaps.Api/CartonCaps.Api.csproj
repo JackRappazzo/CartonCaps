@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CartonCaps.Core\CartonCaps.Core.csproj" />
+    <ProjectReference Include="..\CartonCaps.Persistence\CartonCaps.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
