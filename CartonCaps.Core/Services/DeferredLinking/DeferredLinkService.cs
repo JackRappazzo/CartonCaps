@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace CartonCaps.Core.Services.DeferredDeepLinking
 {
+    /// <inheritdoc cref="IDeferredLinkService" />
     public class DeferredLinkService : IDeferredLinkService
     {
         private IDeepLinkClient deepLinkClient;

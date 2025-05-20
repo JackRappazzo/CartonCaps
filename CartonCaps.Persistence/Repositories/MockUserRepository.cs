@@ -7,6 +7,7 @@ using CartonCaps.Persistence.Models;
 
 namespace CartonCaps.Persistence.Repositories
 {
+    /// <inheritdoc cref="IUserRepository" />
     public class MockUserRepository : IUserRepository
     {
 

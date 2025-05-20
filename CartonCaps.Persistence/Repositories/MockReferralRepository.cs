@@ -7,6 +7,7 @@ using CartonCaps.Persistence.Models;
 
 namespace CartonCaps.Persistence.Repositories
 {
+    /// <inheritdoc cref="IReferralRepository" />
     public class MockReferralRepository : IReferralRepository
     {
         private static List<ReferredUser> referredUsers;

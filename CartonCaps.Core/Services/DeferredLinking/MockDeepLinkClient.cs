@@ -9,6 +9,10 @@ using CartonCaps.Core.Services.DeferredDeepLinking;
 
 namespace CartonCaps.Core.Services.DeferredLinking
 {
+
+    /// <summary>
+    /// Mock client for a fictional deferred deep link service
+    /// </summary>
     public class MockDeepLinkClient : IDeepLinkClient
     {
         const int ShortCodeLength = 8;
