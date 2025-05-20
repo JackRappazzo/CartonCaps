@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace CartonCaps.Persistence.Models
 {
-    public class ReferralModel
+    public class ReferredUser
     {
-        public Guid UserId { get; set; }
-        public Guid ReferredUserId { get; set; }
+        public Guid ReferringUserId { get; set; }
+        public string TruncatedName { get; set; }
+        public ReferralState ReferralState { get; set; }
         public DateTime CreatedOn { get; set; }
-        public string ReferralCodeUsed { get; set; }
+
     }
 }
