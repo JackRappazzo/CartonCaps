@@ -21,8 +21,8 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
             .And(RepositoryReturnsFiveReferrals)
             .When(GetReferralsIsCalled)
             .Then(ShouldReturnExpectedData)
-            .And(ShouldReturnTotalOfFive)
-            .And(ShouldSortCompletedFirst);
+            .And(ShouldSetTotalToFive)
+            .And(ShouldSortByStateThenCreated);
 
         [Given]
         public void SkipIsZero()
@@ -37,19 +37,22 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
         }
 
         [Then]
-        public void ShouldReturnTotalOfFive()
-        {
-            Assert.That(Result.Total, Is.EqualTo(5));
-        }
-
-        [Then]
         public void ShouldReturnExpectedData()
         {
             Assert.That(Result.ReferredUsers.Count(), Is.EqualTo(5));
+
+            var resultNames = Result.ReferredUsers
+                .Select(r => r.TruncatedName);
+
+            var expectedNames = GetFiveReferrals()
+                .Where(r => r.ReferralState != ReferralState.Denied)
+                .Select(r => r.TruncatedName);
+
+            Assert.That(resultNames, Is.EquivalentTo(expectedNames));
         }
 
         [Then]
-        public void ShouldSortCompletedFirst()
+        public void ShouldSortByStateThenCreated()
         {
             Assert.That(Result.ReferredUsers, Is.Ordered.By("ReferralState").Then.By("CreatedOn"));
         }

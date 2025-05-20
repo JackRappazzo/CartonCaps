@@ -7,6 +7,7 @@ using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Models;
 using CartonCaps.UnitTests.Services.Referrals.ReferralServiceTests;
 using LeapingGorilla.Testing.Core.Attributes;
+using LeapingGorilla.Testing.NUnit.Attributes;
 using NSubstitute;
 
 namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetReferralsTests
@@ -89,5 +90,13 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
         {
             Result = await ReferredUserService.GetUserReferralsById(UserId, Skip, Take, CancellationToken);
         }
+
+
+        [Then]
+        public void ShouldSetTotalToFive()
+        {
+            Assert.That(Result.Total, Is.EqualTo(5));
+        }
+
     }
 }

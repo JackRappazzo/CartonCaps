@@ -33,11 +33,6 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
             Take = 5;
         }
 
-        [Then]
-        public void ShouldSetTotalToFive()
-        {
-            Assert.That(Result.Total, Is.EqualTo(5));
-        }
 
         [Then]
         public void ShouldReturnEmptySet()
