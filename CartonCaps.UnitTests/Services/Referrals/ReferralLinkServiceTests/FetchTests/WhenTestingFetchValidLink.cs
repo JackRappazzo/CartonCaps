@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using CartonCaps.Persistence.Models;
 using LeapingGorilla.Testing.Core.Attributes;
 
-namespace CartonCaps.UnitTests.Services.Referrals.ReferralCodeServiceTests.FetchTests
+namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.FetchTests
 {
-    public abstract class WhenTestingFetchValidLink : WhenTestingReferralCodeService
+    public abstract class WhenTestingFetchValidLink : WhenTestingReferralLinkService
     {
         protected CartonCapsUser User;
 
@@ -30,7 +30,7 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralCodeServiceTests.Fetch
         [When]
         public async Task FetchValidLinkIsCalled()
         {
-            Result = await ReferralCodeService.FetchValidReferralLink(User, CancellationToken);
+            Result = await ReferralLinkService.FetchValidReferralLink(User, CancellationToken);
         }
     }
 }

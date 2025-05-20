@@ -14,10 +14,10 @@ namespace CartonCaps.Api.Controllers
     {
         private readonly IDeferredLinkService deferredLinkService;
         private readonly IReferredUserService referredUserService;
-        private readonly IReferralCodeService referralCodeService;
+        private readonly IReferralLinkService referralCodeService;
         private readonly IUserRepository userRepository;
 
-        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService, IReferralCodeService referralCodeService, IUserRepository userRepository)
+        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService, IReferralLinkService referralCodeService, IUserRepository userRepository)
         {
             this.deferredLinkService = deferredLinkService;
             this.referredUserService = referredUserService;

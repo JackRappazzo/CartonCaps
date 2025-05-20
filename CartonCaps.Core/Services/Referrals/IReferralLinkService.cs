@@ -6,7 +6,7 @@ namespace CartonCaps.Core.Services.Referrals
     /// Ensures that a valid referral link can be retrieved
     /// Handles expiration and renewal
     /// </summary>
-    public interface IReferralCodeService
+    public interface IReferralLinkService
     {
 
         /// <summary>

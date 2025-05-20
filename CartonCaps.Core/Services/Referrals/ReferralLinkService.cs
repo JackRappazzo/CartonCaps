@@ -10,13 +10,13 @@ using CartonCaps.Persistence.Repositories;
 namespace CartonCaps.Core.Services.Referrals
 {
 
-    /// <inheritdoc cref="IReferralCodeService"/>
-    public class ReferralCodeService : IReferralCodeService
+    /// <inheritdoc cref="IReferralLinkService"/>
+    public class ReferralLinkService : IReferralLinkService
     {
         protected readonly IReferralLinkRepository referralLinkRepository;
         protected readonly IDeferredLinkService deferredLinkService;
 
-        public ReferralCodeService(IReferralLinkRepository referralLinkRepository, IDeferredLinkService deferredLinkService)
+        public ReferralLinkService(IReferralLinkRepository referralLinkRepository, IDeferredLinkService deferredLinkService)
         {
             this.referralLinkRepository = referralLinkRepository;
             this.deferredLinkService = deferredLinkService;

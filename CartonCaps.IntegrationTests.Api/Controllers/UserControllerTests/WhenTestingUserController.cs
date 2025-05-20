@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CartonCaps.Core.Services.DeferredDeepLinking;
 using CartonCaps.Core.Services.Referrals;
+using CartonCaps.Persistence.Repositories;
 using LeapingGorilla.Testing.Core.Attributes;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
@@ -17,6 +18,8 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests
             
         [Mock] protected IDeferredLinkService DeferredLinkService;
         [Mock] protected IReferredUserService ReferredUserService;
+        [Mock] protected IReferralLinkService ReferralCodeService;
+        [Mock] protected IUserRepository UserRepository;
 
         protected override void InjectDependencies(IServiceCollection services)
         {

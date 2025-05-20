@@ -9,12 +9,12 @@ using CartonCaps.Persistence.Repositories;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.NUnit.Composable;
 
-namespace CartonCaps.UnitTests.Services.Referrals.ReferralCodeServiceTests
+namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests
 {
-    public abstract class WhenTestingReferralCodeService : ComposableTestingTheBehaviourOf
+    public abstract class WhenTestingReferralLinkService : ComposableTestingTheBehaviourOf
     {
         [ItemUnderTest]
-        protected ReferralCodeService ReferralCodeService;
+        protected ReferralLinkService ReferralLinkService;
         
         [Dependency]
         protected IReferralLinkRepository ReferralLinkRepository;

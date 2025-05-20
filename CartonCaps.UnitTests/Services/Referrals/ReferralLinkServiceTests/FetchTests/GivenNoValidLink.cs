@@ -10,7 +10,7 @@ using LeapingGorilla.Testing.NUnit.Attributes;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
-namespace CartonCaps.UnitTests.Services.Referrals.ReferralCodeServiceTests.FetchTests
+namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.FetchTests
 {
     public class GivenNoValidLink : WhenTestingFetchValidLink
     {
