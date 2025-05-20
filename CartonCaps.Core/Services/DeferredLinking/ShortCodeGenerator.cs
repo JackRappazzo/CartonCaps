@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace CartonCaps.Core.Services.DeferredLinking
 {
+    /// <summary>
+    /// Creates a series of random Base62 characters
+    /// </summary>
     public class ShortCodeGenerator : IShortCodeGenerator
     {
 
@@ -19,6 +22,11 @@ namespace CartonCaps.Core.Services.DeferredLinking
             randomNumberGenerator = RandomNumberGenerator.Create();
         }
 
+        /// <summary>
+        /// Generate a series of random Base62 characters
+        /// </summary>
+        /// <param name="length">The length of the returned code</param>
+        /// <returns></returns>
         public string GenerateShortCode(int length)
         {
             var stringBuilder = new StringBuilder(length);
