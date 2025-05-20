@@ -34,5 +34,5 @@ app.MapControllers();
 
 app.Run();
 
-
+//Gives the integration test a valid entry point
 public partial class Program { };

@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CartonCaps.Api.Controllers.Messages;
-using CartonCaps.Persistence.Models;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.Core.Composable;
 using LeapingGorilla.Testing.NUnit.Attributes;
-using Newtonsoft.Json;
 using NSubstitute;
 
 namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.ReferredUsersTests
 {
-    public class GivenHappyPath : WhenTestingGetReferredUsers
+    public class GivenMissingPagingParams : WhenTestingGetReferredUsers
     {
-
-        int PageStart = 0;
-        int NumberPerPage = 10;
-       
-
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(ApplicationIsRunning)
-            .And(RequestUrlIsSet)
+            .And(RequestDoesNotHavePaging)
             .And(ReferredUserServiceReturnsReferrals)
             .When(GetIsCalled)
             .Then(ShouldReturnOk)
@@ -30,9 +23,10 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 
 
         [Given]
-        public void RequestUrlIsSet()
+        public void RequestDoesNotHavePaging()
         {
-            RequestUrl = $"api/users/referredUsers?pageStart={PageStart}&numberPerPage={NumberPerPage}";
+            //Omit pageStart and numberPerPage
+            RequestUrl = "api/users/referredUsers";
         }
 
         [Given]
@@ -43,8 +37,8 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
             ReferredUserService
                 .GetUserReferralsById(
                     Arg.Any<Guid>(),
-                    PageStart,
-                    NumberPerPage,
+                    skip: 0, //Default 
+                    take: 10, //Default
                     Arg.Any<CancellationToken>())
                 .Returns((2, ExpectedReferrals));
         }
