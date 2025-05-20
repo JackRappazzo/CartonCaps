@@ -7,10 +7,10 @@ using CartonCaps.Persistence.Models;
 
 namespace CartonCaps.Persistence.Repositories
 {
-    public class ReferralRepository : IReferralRepository
+    public class MockReferralRepository : IReferralRepository
     {
         private static List<ReferredUser> referredUsers;
-        public ReferralRepository()
+        public MockReferralRepository()
         {
             if (referredUsers == null)
             {

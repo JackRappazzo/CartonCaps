@@ -12,7 +12,7 @@ namespace CartonCaps.Persistence.Models
     {
         public static readonly Guid MockLoggedInUserId = Guid.Parse("2a154b8b-9228-4701-9e57-b538a66796e0");
 
-        public Guid Id { get; internal set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -3,6 +3,7 @@ using CartonCaps.Api.Controllers.Messages;
 using CartonCaps.Core.Services.DeferredDeepLinking;
 using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Models;
+using CartonCaps.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CartonCaps.Api.Controllers
@@ -11,13 +12,16 @@ namespace CartonCaps.Api.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        IDeferredLinkService deferredLinkService;
-        IReferredUserService referredUserService;
+        private readonly IDeferredLinkService deferredLinkService;
+        private readonly IReferredUserService referredUserService;
+        private readonly IReferralCodeService referralCodeService;
+        private readonly IUserRepository userRepository;
 
-        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService)
+        public UserController(IDeferredLinkService deferredLinkService, IReferredUserService referredUserService, IReferralCodeService referralCodeService, IUserRepository userRepository)
         {
             this.deferredLinkService = deferredLinkService;
             this.referredUserService = referredUserService;
+            this.userRepository = userRepository;
         }
 
 
@@ -58,11 +62,18 @@ namespace CartonCaps.Api.Controllers
         [HttpGet("referralCode")]
         public async Task<IActionResult> GetReferralCodeAndLink(CancellationToken cancellationToken)
         {
+            //Mock for User.Identity.GetUserId()
+            var userId = CartonCapsUser.MockLoggedInUserId;
+
+            var user = await userRepository.FetchUserById(userId, cancellationToken);
+
+
+
             return Ok(new ReferralCodeAndLinkResponse()
             {
-                ReferralCode = "123ABC",
+                ReferralCode = user.ReferralCode,
 
-                DeferredLink = await deferredLinkService.CreateReferralDeepLink("123ABC", cancellationToken)
+                DeferredLink = await referralCodeService.FetchValidReferralLink(user, cancellationToken)
             });
         }
     }

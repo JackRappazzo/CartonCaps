@@ -3,34 +3,28 @@ using CartonCaps.Core.Services.DeferredLinking;
 using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Repositories;
 
-public class Program
-{
-    private static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
+// Add services to the container.
 
-        builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson();
 
-        builder.Services.AddScoped<IDeferredLinkService, DeferredLinkService>();
-        builder.Services.AddScoped<IShortCodeGenerator, ShortCodeGenerator>();
-        builder.Services.AddScoped<IDeepLinkClient, MockDeepLinkClient>();
-        builder.Services.AddScoped<IReferralRepository, ReferralRepository>();
-        builder.Services.AddScoped<IReferredUserService, ReferredUserService>();
+builder.Services.AddScoped<IDeferredLinkService, DeferredLinkService>();
+builder.Services.AddScoped<IShortCodeGenerator, ShortCodeGenerator>();
+builder.Services.AddScoped<IDeepLinkClient, MockDeepLinkClient>();
+builder.Services.AddScoped<IReferralRepository, MockReferralRepository>();
+builder.Services.AddScoped<IReferredUserService, ReferredUserService>();
 
-        var app = builder.Build();
+var app = builder.Build();
 
 
 
-        // Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline.
 
-        app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
-        app.UseAuthorization();
+app.UseAuthorization();
 
-        app.MapControllers();
+app.MapControllers();
 
-        app.Run();
-    }
-}
+app.Run();

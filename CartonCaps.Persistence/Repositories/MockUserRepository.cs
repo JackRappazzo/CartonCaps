@@ -7,13 +7,13 @@ using CartonCaps.Persistence.Models;
 
 namespace CartonCaps.Persistence.Repositories
 {
-    public class UserRepository
+    public class MockUserRepository : IUserRepository
     {
-        
+
         protected static List<CartonCapsUser> userStore;
 
 
-        public UserRepository()
+        public MockUserRepository()
         {
             if (userStore == null)
             {
