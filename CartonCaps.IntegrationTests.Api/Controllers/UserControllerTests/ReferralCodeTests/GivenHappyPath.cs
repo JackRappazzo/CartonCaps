@@ -20,11 +20,18 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(ApplicationIsRunning)
+            .And(RequestUrlIsSet)
             .And(UserRepositoryFindsUser)
             .And(ReferralLinkServiceReturnsLink)
             .When(GetIsCalled)
             .Then(ShouldReturnOk)
             .And(ShouldReturnExpectedCode);
+
+        [Given]
+        public void RequestUrlIsSet()
+        {
+            RequestUrl = "api/users/referralCode";
+        }
 
         [Given]
         public void UserRepositoryFindsUser()

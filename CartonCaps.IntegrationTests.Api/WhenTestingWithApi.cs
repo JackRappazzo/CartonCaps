@@ -20,7 +20,7 @@ namespace CartonCaps.IntegrationTests.Api
 
         protected WebApplicationFactory<Program> Factory;
 
-        protected abstract string RequestUrl { get; }
+        protected string RequestUrl;
 
         protected virtual void InjectDependencies(IServiceCollection services)
         {

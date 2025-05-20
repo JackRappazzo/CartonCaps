@@ -9,7 +9,6 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 {
     public abstract class WhenTestingGetReferralCode : WhenTestingUserController
     {
-        protected override string RequestUrl => "api/users/referralCode";
 
     }
 }

@@ -11,6 +11,8 @@ namespace CartonCaps.IntegrationTests.Api.Controllers
     public abstract class WhenTestingController : WhenTestingWithApi
     {
         protected HttpResponseMessage Response;
+        
+        //We can eventually add a Given that adds Bearer tokens as part of the process
 
         [When]
         public async Task GetIsCalled()

@@ -14,7 +14,6 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests
 {
     public abstract class WhenTestingUserController : WhenTestingController
     {
-        protected override string RequestUrl => "api/users/referralCode";
             
         [Mock] protected IDeferredLinkService DeferredLinkService;
         [Mock] protected IReferredUserService ReferredUserService;
