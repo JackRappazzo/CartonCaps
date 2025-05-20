@@ -49,7 +49,16 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
                 .ThenBy(r => r.CreatedOn)
                 .Select(r => r.TruncatedName); //Lets simplify what we're testing right now
 
+            var expectedSkippedReferrals = GetFiveReferrals()
+                .Take(2)
+                .OrderBy(r => r.ReferralState)
+                .ThenBy(r => r.CreatedOn)
+                .Select(r => r.TruncatedName);
+
             Assert.That(Result.ReferredUsers.Select(r=>r.TruncatedName), Is.EquivalentTo(expectedReferrals));
+
+            
+            Assert.That(Result.ReferredUsers.Select(r => r.TruncatedName), Is.Not.SubsetOf(expectedSkippedReferrals));
         }
     }
 }

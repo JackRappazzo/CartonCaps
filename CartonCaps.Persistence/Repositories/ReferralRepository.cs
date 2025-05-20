@@ -97,37 +97,37 @@ namespace CartonCaps.Persistence.Repositories
                     new ReferredUser()
                     {
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
-                        CreatedOn = DateTime.Now - TimeSpan.FromDays(32),
+                        CreatedOn = DateTime.Now - TimeSpan.FromDays(100),
                         ReferralState = ReferralState.Completed,
-                        TruncatedName = "Siobhan M."
+                        TruncatedName = "Aoife N."
                     },
                     new ReferredUser()
                     {
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
-                        CreatedOn = DateTime.Now - TimeSpan.FromDays(41),
+                        CreatedOn = DateTime.Now - TimeSpan.FromDays(23),
                         ReferralState = ReferralState.Completed,
-                        TruncatedName = "Hien N."
+                        TruncatedName = "Mary A."
                     },
                     new ReferredUser()
                     {
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(11),
                         ReferralState = ReferralState.Completed,
-                        TruncatedName = "Mark M."
+                        TruncatedName = "Millicent M."
                     },
                     new ReferredUser()
                     {
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(32),
                         ReferralState = ReferralState.NeedsAudit,
-                        TruncatedName = "Louise C."
+                        TruncatedName = "Larry B."
                     },
                     new ReferredUser()
                     {
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(5),
                         ReferralState = ReferralState.NeedsAudit,
-                        TruncatedName = "Riley O."
+                        TruncatedName = "Bill B."
                     },
                 }.ToList();
                 #endregion

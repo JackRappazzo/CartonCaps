@@ -26,8 +26,6 @@ namespace CartonCaps.Core.Services.Referrals
                 ?.Where(r => r.ReferralState != ReferralState.Denied) ?? new ReferredUser[0];
 
             var resultSet = referrals
-                .Skip(skip)
-                .Take(take)
                 .Select(r =>
                 {
                     //Bad actors can use the NeedsAudit state to know when their fraud methods
@@ -39,7 +37,9 @@ namespace CartonCaps.Core.Services.Referrals
                     return r;
                 })
                 .OrderBy(r => r.ReferralState)
-                .ThenBy(r => r.CreatedOn);
+                .ThenBy(r => r.CreatedOn)
+                .Skip(skip)
+                .Take(take);
 
             return (referrals.Count(), resultSet);
         }
