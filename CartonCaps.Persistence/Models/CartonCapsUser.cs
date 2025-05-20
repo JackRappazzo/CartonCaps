@@ -20,6 +20,8 @@ namespace CartonCaps.Persistence.Models
         public string DisplayName { get; set; }
         public string Email { get; set; }
        
+        public string ReferralCode { get; set; }
+
         public DateOnly DateOfBirth { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime LastLoggedInOn { get; set; }
