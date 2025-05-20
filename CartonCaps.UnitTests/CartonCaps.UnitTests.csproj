@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\DeferredLinking\MockDeepLinkClientTests\FetchTests\**" />
+    <EmbeddedResource Remove="Services\DeferredLinking\MockDeepLinkClientTests\FetchTests\**" />
+    <None Remove="Services\DeferredLinking\MockDeepLinkClientTests\FetchTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -30,10 +36,6 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\DeferredLinking\MockDeepLinkClientTests\FetchTests\" />
   </ItemGroup>
 
 </Project>

@@ -31,5 +31,11 @@ namespace CartonCaps.IntegrationTests.Api.Controllers
         {
             Assert.That(Response.StatusCode == System.Net.HttpStatusCode.BadRequest);
         }
+
+        [Then]
+        public void ShouldReturnNotFound()
+        {
+            Assert.That(Response.StatusCode == System.Net.HttpStatusCode.NotFound);
+        }
     }
 }
