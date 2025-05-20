@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CartonCaps.Api.Controllers.Messages;
 using CartonCaps.Core.Services.DeferredDeepLinking;
+using CartonCaps.Persistence.Models;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.Core.Composable;
 using LeapingGorilla.Testing.NUnit.Attributes;
@@ -19,15 +20,28 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(ApplicationIsRunning)
-            .And(DeferredLinkServiceReturnsLink)
+            .And(UserRepositoryFindsUser)
+            .And(ReferralLinkServiceReturnsLink)
             .When(GetIsCalled)
             .Then(ShouldReturnOk)
             .And(ShouldReturnExpectedCode);
 
         [Given]
-        public void DeferredLinkServiceReturnsLink()
+        public void UserRepositoryFindsUser()
         {
-            DeferredLinkService.CreateReferralDeepLink(Arg.Any<string>(), Arg.Any<CancellationToken>())
+            UserRepository.FetchUserById(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
+                .Returns(
+                    new CartonCapsUser()
+                    {
+                        Id = Guid.NewGuid(),
+                        ReferralCode = "123abcde",
+                    });
+        }
+
+        [Given]
+        public void ReferralLinkServiceReturnsLink()
+        {
+            ReferralLinkService.FetchValidReferralLink(Arg.Is<CartonCapsUser>(u=>u.ReferralCode == "123abcde"), Arg.Any<CancellationToken>())
                 .Returns(ExpectedDeferredLink);
         }
 

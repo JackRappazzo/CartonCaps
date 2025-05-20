@@ -22,6 +22,7 @@ namespace CartonCaps.Api.Controllers
             this.deferredLinkService = deferredLinkService;
             this.referredUserService = referredUserService;
             this.userRepository = userRepository;
+            this.referralCodeService = referralCodeService;
         }
 
 
@@ -58,6 +59,7 @@ namespace CartonCaps.Api.Controllers
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+
         //[Authorize]
         [HttpGet("referralCode")]
         public async Task<IActionResult> GetReferralCodeAndLink(CancellationToken cancellationToken)

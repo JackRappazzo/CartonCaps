@@ -18,13 +18,16 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests
             
         [Mock] protected IDeferredLinkService DeferredLinkService;
         [Mock] protected IReferredUserService ReferredUserService;
-        [Mock] protected IReferralLinkService ReferralCodeService;
+        [Mock] protected IReferralLinkService ReferralLinkService;
         [Mock] protected IUserRepository UserRepository;
 
         protected override void InjectDependencies(IServiceCollection services)
         {
             services.AddTransient(_ => DeferredLinkService);
             services.AddTransient(_ => ReferredUserService);
+            services.AddTransient(_ => ReferralLinkService);
+            services.AddTransient(_ => UserRepository);
+
             base.InjectDependencies(services);
         }
     }

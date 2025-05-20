@@ -9,11 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
-builder.Services.AddScoped<IDeferredLinkService, DeferredLinkService>();
 builder.Services.AddScoped<IShortCodeGenerator, ShortCodeGenerator>();
 builder.Services.AddScoped<IDeepLinkClient, MockDeepLinkClient>();
-builder.Services.AddScoped<IReferralRepository, MockReferralRepository>();
+
+builder.Services.AddScoped<IDeferredLinkService, DeferredLinkService>();
 builder.Services.AddScoped<IReferredUserService, ReferredUserService>();
+builder.Services.AddScoped<IReferralLinkService, ReferralLinkService>();
+
+builder.Services.AddScoped<IUserRepository, MockUserRepository>();
+builder.Services.AddScoped<IReferralLinkRepository, MockReferralLinkRepository>();
+builder.Services.AddScoped<IReferralRepository, MockReferralRepository>();
 
 var app = builder.Build();
 
@@ -28,3 +33,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program { };
