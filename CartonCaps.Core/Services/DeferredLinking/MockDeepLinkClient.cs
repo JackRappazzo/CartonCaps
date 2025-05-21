@@ -15,12 +15,12 @@ namespace CartonCaps.Core.Services.DeferredLinking
     /// </summary>
     public class MockDeepLinkClient : IDeepLinkClient
     {
-        const int ShortCodeLength = 8;
+        const int ShortCodeLength = 10;
 
         private static ConcurrentDictionary<string, DeferredLink?> links = new ConcurrentDictionary<string, DeferredLink?>();
         IShortCodeGenerator codeGenerator;
 
-        const string baseUrl = "https://cartoncaps.com/app/{0}";
+        const string baseUrl = "https://cartoncaps.link/{0}";
 
         public MockDeepLinkClient(IShortCodeGenerator shortCodeGenerator)
         {
@@ -64,6 +64,13 @@ namespace CartonCaps.Core.Services.DeferredLinking
             }
         }
 
+        /// <summary>
+        /// Recursively attempt to reserve generated short codes until one is found that does not already exist
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="tryCount"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private bool GenerateAndReserveShortCode(ref string code, int tryCount=0)
         {
             //We should never have to throw.
