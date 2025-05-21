@@ -9,7 +9,7 @@ namespace CartonCaps.Core.Services.DeferredDeepLinking
     /// <inheritdoc cref="IDeferredLinkService" />
     public class DeferredLinkService : IDeferredLinkService
     {
-        private IDeepLinkClient deepLinkClient;
+        private readonly IDeepLinkClient deepLinkClient;
 
         public DeferredLinkService(IDeepLinkClient deepLinkClient)
         {

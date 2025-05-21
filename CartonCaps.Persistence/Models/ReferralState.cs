@@ -24,11 +24,13 @@ namespace CartonCaps.Persistence.Models
         
         /// <summary>
         /// The referral needs to be reviewed by an auditing process
+        /// The auditing process is not implemented in this example
         /// </summary>
         NeedsAudit = 2, 
         
         /// <summary>
         /// The referral has been failed by an audit process or other criteria
+        /// The auditing process is not implemented in this example
         /// </summary>
         Denied = 3
     };

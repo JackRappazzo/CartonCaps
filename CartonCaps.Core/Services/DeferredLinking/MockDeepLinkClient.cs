@@ -20,7 +20,7 @@ namespace CartonCaps.Core.Services.DeferredLinking
         private static ConcurrentDictionary<string, DeferredLink?> links = new ConcurrentDictionary<string, DeferredLink?>();
        
         
-        private IShortCodeGenerator codeGenerator;
+        private readonly IShortCodeGenerator codeGenerator;
 
         private const string baseUrl = "https://cartoncaps.link/{0}";
 

@@ -10,13 +10,20 @@ namespace CartonCaps.Api.Controllers
     [Route("api/deferredLinks")]
     public class DeferredLinkController : ControllerBase
     {
-        IDeferredLinkService deferredLinkService;
+        private readonly IDeferredLinkService deferredLinkService;
 
         public DeferredLinkController(IDeferredLinkService deferredLinkService)
         {
             this.deferredLinkService = deferredLinkService;
         }
 
+        /// <summary>
+        /// Returns destination and metadata for a given deferred deep link.
+        /// Metadata can include things such as the referral code
+        /// </summary>
+        /// <param name="linkCode"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("resolve/{linkCode}")]
         public async Task<IActionResult> ResolveDeferredLink(string linkCode, CancellationToken cancellationToken)
         {
