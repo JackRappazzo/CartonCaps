@@ -14,18 +14,24 @@ namespace CartonCaps.ReferralAudit.Core.Services
         private readonly IUserRepository userRepository;
         private readonly IReferralRepository referralRepository;
         private readonly IIndividualReferralStateEvaluator individualReferralStateEvaluator;
+        private readonly IIpThresholdEvaluator ipThresholdEvaluator;
+        private readonly ISessionIdThresholdEvaluator sessionIdThresholdEvaluator;
         private readonly AuditThresholdConfiguration thresholdConfiguration;
 
 
         public UserReferralProcessor(
             IUserRepository userRepository, 
             IReferralRepository referralRepository, 
-            IIndividualReferralStateEvaluator stateEvaluator, 
+            IIndividualReferralStateEvaluator stateEvaluator,
+            IIpThresholdEvaluator ipThresholdEvaluator,
+            ISessionIdThresholdEvaluator sessionIdThresholdEvaluator,
             IAuditThresholdConfigurationFactory configFactory)
         {
             this.userRepository = userRepository;
             this.referralRepository = referralRepository;
             this.individualReferralStateEvaluator = stateEvaluator;
+            this.ipThresholdEvaluator = ipThresholdEvaluator;
+            this.sessionIdThresholdEvaluator = sessionIdThresholdEvaluator;
             this.thresholdConfiguration = configFactory.Create();
         }
 
@@ -34,8 +40,17 @@ namespace CartonCaps.ReferralAudit.Core.Services
             var user = await userRepository.FetchUserById(userId, cancellationToken);
             var userReferrals = await referralRepository.GetReferredUsersByReferringId(userId, cancellationToken);
 
-            var ipThresholdFailureGuids = GetReferredIdsOverIpThreshold(user.RegisteredIpAddress, userReferrals);
-            var sessionThresholdFailureGuids = GetReferredIdsOverSessionThreshold(user.RegisteredSessionId, userReferrals);
+            var ipThresholdFailureGuids = ipThresholdEvaluator.GetReferralIdsThatExceedIpThreshold(
+                user.RegisteredIpAddress, 
+                userReferrals, 
+                thresholdConfiguration.SameIpThreshold);
+
+            var sessionThresholdFailureGuids = sessionIdThresholdEvaluator.GetReferralIdsThatExceedSessionIdThreshold(
+                user.RegisteredSessionId,
+                userReferrals,
+                thresholdConfiguration.SameSessionThreshold);
+
+
 
             var referralIdsToAudit = ipThresholdFailureGuids.Concat(sessionThresholdFailureGuids).Distinct();
 
@@ -67,28 +82,6 @@ namespace CartonCaps.ReferralAudit.Core.Services
                     //We do not want to throw if we can avoid it
                 }
             }
-
         }
-
-        private IEnumerable<Guid> GetReferredIdsOverIpThreshold(string ipAddress, IEnumerable<ReferredUser> referrals)
-        {
-            var referralsSharingIpAddress = referrals.Where(r => r.ReferredIpAddress == ipAddress);
-            if (referralsSharingIpAddress.Count() > thresholdConfiguration.SameIpThreshold)
-            {
-                return referralsSharingIpAddress.Select(r => r.Id);
-            }
-            else return [];
-        }
-
-        private IEnumerable<Guid> GetReferredIdsOverSessionThreshold(Guid sessionId, IEnumerable<ReferredUser> referrals)
-        {
-            var referralsSharingSessionId = referrals.Where(r => r.ReferredSessionId == sessionId);
-            if (referralsSharingSessionId.Count() > thresholdConfiguration.SameSessionThreshold)
-            {
-                return referralsSharingSessionId.Select(r => r.Id);
-            }
-            else return [];
-        }
-
     }
 }

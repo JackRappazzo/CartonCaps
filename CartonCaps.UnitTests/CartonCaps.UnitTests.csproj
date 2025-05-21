@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CartonCaps.Core\CartonCaps.Core.csproj" />
+    <ProjectReference Include="..\CartonCaps.ReferralAudit.Core\CartonCaps.ReferralAudit.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
