@@ -45,7 +45,7 @@ namespace CartonCaps.UnitTests.Services.DeferredLinking.MockDeepLinkClientTests.
         [Then]
         public void ShouldReturnExpectedUrl()
         {
-            var expectedUrl = string.Format("https://cartoncaps.com/app/{0}", GeneratedShortCode);
+            var expectedUrl = string.Format("https://cartoncaps.link/{0}", GeneratedShortCode);
             Assert.That(Result, Is.EqualTo(expectedUrl));
         }
     }
