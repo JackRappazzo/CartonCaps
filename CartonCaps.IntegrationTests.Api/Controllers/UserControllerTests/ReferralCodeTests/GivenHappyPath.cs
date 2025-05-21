@@ -16,7 +16,13 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 {
     public class GivenHappyPath : WhenTestingGetReferralCode
     {
-        protected string ExpectedDeferredLink = "https://sample.com/abcd1234";
+        protected string DeferredLink = "https://sample.com/abcd1234";
+        protected string ExpectedDeferredLink = $"https://sample.com/abcd1234?referral_code=123abcde";
+        protected CartonCapsUser User = new CartonCapsUser()
+        {
+            Id = Guid.NewGuid(),
+            ReferralCode = "123abcde",
+        };
 
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(ApplicationIsRunning)
@@ -37,19 +43,14 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
         public void UserRepositoryFindsUser()
         {
             UserRepository.FetchUserById(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-                .Returns(
-                    new CartonCapsUser()
-                    {
-                        Id = Guid.NewGuid(),
-                        ReferralCode = "123abcde",
-                    });
+                .Returns(User);
         }
 
         [Given]
         public void ReferralLinkServiceReturnsLink()
         {
             ReferralLinkService.FetchValidReferralLink(Arg.Is<CartonCapsUser>(u=>u.ReferralCode == "123abcde"), Arg.Any<CancellationToken>())
-                .Returns(ExpectedDeferredLink);
+                .Returns(DeferredLink);
         }
 
         [Then]
@@ -57,6 +58,7 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
         {
             var payload = JsonConvert.DeserializeObject<ReferralCodeAndLinkResponse>(await Response.Content.ReadAsStringAsync());
             Assert.That(payload.DeferredLink, Is.EqualTo(ExpectedDeferredLink));
+            Assert.That(payload.ReferralCode, Is.EqualTo(User.ReferralCode));
         }
     }
 }
