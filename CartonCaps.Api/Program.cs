@@ -2,12 +2,16 @@ using CartonCaps.Core.Services.DeferredDeepLinking;
 using CartonCaps.Core.Services.DeferredLinking;
 using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Repositories;
+using Newtonsoft.Json.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson(config =>
+{
+    config.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
 
 builder.Services.AddScoped<IShortCodeGenerator, ShortCodeGenerator>();
 builder.Services.AddScoped<IDeepLinkClient, MockDeepLinkClient>();
