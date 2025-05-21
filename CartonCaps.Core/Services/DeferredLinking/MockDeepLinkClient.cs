@@ -18,9 +18,11 @@ namespace CartonCaps.Core.Services.DeferredLinking
         const int ShortCodeLength = 10;
 
         private static ConcurrentDictionary<string, DeferredLink?> links = new ConcurrentDictionary<string, DeferredLink?>();
-        IShortCodeGenerator codeGenerator;
+       
+        
+        private IShortCodeGenerator codeGenerator;
 
-        const string baseUrl = "https://cartoncaps.link/{0}";
+        private const string baseUrl = "https://cartoncaps.link/{0}";
 
         public MockDeepLinkClient(IShortCodeGenerator shortCodeGenerator)
         {
