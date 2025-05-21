@@ -42,14 +42,14 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
         [Then]
         public void ShouldSkipFirstTwoResults()
         {
-            var expectedReferrals = GetFiveReferrals()
+            var expectedReferrals = GetStoredReferrals()
                 .OrderBy(r => r.ReferralState)
                 .ThenBy(r => r.CreatedOn)
                 .Skip(2)
                 .Take(2)
                 .Select(r => r.TruncatedName); //Lets simplify what we're testing right now
 
-            var expectedSkippedReferrals = GetFiveReferrals()
+            var expectedSkippedReferrals = GetStoredReferrals()
                 .OrderBy(r => r.ReferralState)
                 .ThenBy(r => r.CreatedOn)
                 .Take(2)

@@ -20,6 +20,7 @@ namespace CartonCaps.Persistence.Repositories
                 {
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(20),
                         ReferralState = ReferralState.Completed,
@@ -27,6 +28,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(5),
                         ReferralState = ReferralState.Completed,
@@ -34,6 +36,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(7),
                         ReferralState = ReferralState.Completed,
@@ -41,6 +44,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(35),
                         ReferralState = ReferralState.Completed,
@@ -48,6 +52,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(47),
                         ReferralState = ReferralState.Completed,
@@ -55,6 +60,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(2),
                         ReferralState = ReferralState.Completed,
@@ -62,6 +68,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(5),
                         ReferralState = ReferralState.Pending,
@@ -69,6 +76,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(120),
                         ReferralState = ReferralState.Pending,
@@ -76,6 +84,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(55),
                         ReferralState = ReferralState.Pending,
@@ -83,6 +92,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(3),
                         ReferralState = ReferralState.Pending,
@@ -90,6 +100,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(90),
                         ReferralState = ReferralState.Pending,
@@ -97,6 +108,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(100),
                         ReferralState = ReferralState.Completed,
@@ -104,6 +116,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(23),
                         ReferralState = ReferralState.Completed,
@@ -111,6 +124,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(11),
                         ReferralState = ReferralState.Completed,
@@ -118,6 +132,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(32),
                         ReferralState = ReferralState.NeedsAudit,
@@ -125,6 +140,7 @@ namespace CartonCaps.Persistence.Repositories
                     },
                     new ReferredUser()
                     {
+                        Id = Guid.NewGuid(),
                         ReferringUserId = CartonCapsUser.MockLoggedInUserId,
                         CreatedOn = DateTime.Now - TimeSpan.FromDays(5),
                         ReferralState = ReferralState.NeedsAudit,
@@ -135,15 +151,21 @@ namespace CartonCaps.Persistence.Repositories
             }
         }
 
-        /// <summary>
-        /// Returns data representing the users a given user has referred
-        /// </summary>
-        /// <param name="referringUserId">Guid representing the referring user</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         public async Task<IEnumerable<ReferredUser>> GetReferredUsersByReferringId(Guid referringUserId, CancellationToken cancellationToken)
         {
             return referredUsers.Where(u => u.ReferringUserId == referringUserId);
+        }
+
+        public async Task<bool> UpdateReferralStateById(Guid referralId, ReferralState newReferralState, CancellationToken cancellationToken)
+        {
+            var userToUpdate = referredUsers.Where(r => r.Id == referralId).FirstOrDefault();
+            if (userToUpdate != null)
+            {
+                userToUpdate.ReferralState = newReferralState;
+                return true;
+            }
+            else return false;
+
         }
     }
 }

@@ -44,7 +44,7 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
             var resultNames = Result.ReferredUsers
                 .Select(r => r.TruncatedName);
 
-            var expectedNames = GetFiveReferrals()
+            var expectedNames = GetStoredReferrals()
                 .Where(r => r.ReferralState != ReferralState.Denied)
                 .Select(r => r.TruncatedName);
 

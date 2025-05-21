@@ -14,5 +14,14 @@ namespace CartonCaps.Persistence.Repositories
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<IEnumerable<ReferredUser>> GetReferredUsersByReferringId(Guid referringUserId, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Updates an individual referrals <see cref="ReferralState"/>
+        /// </summary>
+        /// <param name="referralId">The referral ID to update</param>
+        /// <param name="newReferralState">The new state for this referral</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<bool> UpdateReferralStateById(Guid referralId, ReferralState newReferralState, CancellationToken cancellationToken);
     }
 }

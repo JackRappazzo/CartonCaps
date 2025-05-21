@@ -58,7 +58,7 @@ namespace CartonCaps.Persistence.Models
         /// <summary>
         /// Date the user last logged in
         /// </summary>
-        public DateTime LastLoggedInOn { get; set; }
+        public DateTime? LastLoggedInOn { get; set; }
 
         /// <summary>
         /// ID representing the session the user registered with.
