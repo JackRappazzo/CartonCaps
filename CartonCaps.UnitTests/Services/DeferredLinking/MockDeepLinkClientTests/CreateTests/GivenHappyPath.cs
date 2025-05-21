@@ -14,7 +14,7 @@ namespace CartonCaps.UnitTests.Services.DeferredLinking.MockDeepLinkClientTests.
     public class GivenHappyPath : WhenTestingCreate
     {
 
-        protected string GeneratedShortCode = "ABC123DE";
+        protected string GeneratedShortCode = "ABC123DEFG";
 
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(DestinationIsSet)
@@ -39,13 +39,13 @@ namespace CartonCaps.UnitTests.Services.DeferredLinking.MockDeepLinkClientTests.
         [Given]
         public void CodeGeneratorCreatesCode()
         {
-            ShortCodeGenerator.GenerateShortCode(8).Returns(GeneratedShortCode);
+            ShortCodeGenerator.GenerateShortCode(10).Returns(GeneratedShortCode);
         }
         
         [Then]
         public void ShouldReturnExpectedUrl()
         {
-            var expectedUrl = string.Format("https://cartoncaps.com/app/{0}", GeneratedShortCode);
+            var expectedUrl = string.Format("https://cartoncaps.link/{0}", GeneratedShortCode);
             Assert.That(Result, Is.EqualTo(expectedUrl));
         }
     }
