@@ -20,8 +20,8 @@ namespace CartonCaps.ReferralAudit.Core.Services
 
 
         public UserReferralProcessor(
-            IUserRepository userRepository, 
-            IReferralRepository referralRepository, 
+            IUserRepository userRepository,
+            IReferralRepository referralRepository,
             IIndividualReferralStateEvaluator stateEvaluator,
             IIpThresholdEvaluator ipThresholdEvaluator,
             ISessionIdThresholdEvaluator sessionIdThresholdEvaluator,
@@ -40,46 +40,56 @@ namespace CartonCaps.ReferralAudit.Core.Services
             var user = await userRepository.FetchUserById(userId, cancellationToken);
             var userReferrals = await referralRepository.GetReferredUsersByReferringId(userId, cancellationToken);
 
-            var ipThresholdFailureGuids = ipThresholdEvaluator.GetReferralIdsThatExceedIpThreshold(
-                user.RegisteredIpAddress, 
-                userReferrals, 
-                thresholdConfiguration.SameIpThreshold);
-
-            var sessionThresholdFailureGuids = sessionIdThresholdEvaluator.GetReferralIdsThatExceedSessionIdThreshold(
-                user.RegisteredSessionId,
-                userReferrals,
-                thresholdConfiguration.SameSessionThreshold);
-
-
-
-            var referralIdsToAudit = ipThresholdFailureGuids.Concat(sessionThresholdFailureGuids).Distinct();
-
-            //Remove all of referrals heading to audit and keep only those that are pending
-            //We don't need to process completed referrals
-            var referralsToProcess = userReferrals.Where(r => 
-                !referralIdsToAudit.Contains(r.Id) && 
-                r.ReferralState == ReferralState.Pending);
-
-            foreach(var referral in referralsToProcess)
+            //Only proceed if we have referrals that are Pending
+            //We do NOT filter out Completed referrals yet since they are still
+            //relevant to our filters
+            if (userReferrals.Where(r => r.ReferralState == ReferralState.Pending).Any())
             {
-                var referralState = await individualReferralStateEvaluator.EvaluateReferralState(referral, cancellationToken);
-                
-                var success = await referralRepository.UpdateReferralStateById(referral.Id, referralState, cancellationToken);
-                if(!success)
+
+                var ipThresholdFailureGuids = ipThresholdEvaluator.GetReferralIdsThatExceedIpThreshold(
+                    user.RegisteredIpAddress,
+                    userReferrals,
+                    thresholdConfiguration.SameIpThreshold);
+
+                var sessionThresholdFailureGuids = sessionIdThresholdEvaluator.GetReferralIdsThatExceedSessionIdThreshold(
+                    user.RegisteredSessionId,
+                    userReferrals,
+                    thresholdConfiguration.SameSessionThreshold);
+
+
+
+                var referralIdsToAudit = ipThresholdFailureGuids.Concat(sessionThresholdFailureGuids).Distinct();
+
+                //Remove all of referrals heading to audit and keep only those that are pending
+                //We don't need to process completed referrals
+                var referralsToProcess = userReferrals.Where(r =>
+                    !referralIdsToAudit.Contains(r.Id) &&
+                    r.ReferralState == ReferralState.Pending);
+
+                foreach (var referral in referralsToProcess)
                 {
-                    // Log as an error and continue
-                    //We do not want to throw if we can avoid it
+                    var referralState = await individualReferralStateEvaluator.EvaluateReferralState(referral, cancellationToken);
+
+                    if (referralState == ReferralState.Completed)
+                    {
+                        var success = await referralRepository.UpdateReferralStateById(referral.Id, referralState, cancellationToken);
+                        if (!success)
+                        {
+                            // Log as an error and continue
+                            //We do not want to throw if we can avoid it
+                        }
+                    }
+
                 }
 
-            }
-
-            foreach(var filtered in userReferrals.Where(r=>referralIdsToAudit.Contains(r.Id)))
-            {
-                var success = await referralRepository.UpdateReferralStateById(filtered.Id, ReferralState.NeedsAudit, cancellationToken);
-                if (!success)
+                foreach (var filtered in userReferrals.Where(r => referralIdsToAudit.Contains(r.Id)))
                 {
-                    // Log as an error and continue
-                    //We do not want to throw if we can avoid it
+                    var success = await referralRepository.UpdateReferralStateById(filtered.Id, ReferralState.NeedsAudit, cancellationToken);
+                    if (!success)
+                    {
+                        // Log as an error and continue
+                        //We do not want to throw if we can avoid it
+                    }
                 }
             }
         }

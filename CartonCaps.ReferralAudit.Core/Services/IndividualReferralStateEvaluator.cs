@@ -74,7 +74,10 @@ namespace CartonCaps.ReferralAudit.Core.Services
 
         private async Task<bool> EvaluatePurchaseRule(CartonCapsUser userToCheck, CancellationToken cancellationToken)
         {
-            var purchaseSum = (await purchaseHistoryRepository.GetPurchaseHistoryByUserId(userToCheck.Id, cancellationToken)).AmountSpentUsd;
+            //Possible for no purchase history.
+            //Do not throw, just assume 0
+            var purchaseSum = (await purchaseHistoryRepository.GetPurchaseHistoryByUserId(userToCheck.Id, cancellationToken))?.AmountSpentUsd ?? 0;
+
             return purchaseSum > thresholdConfiguration.PurchaseThreadhold;
         }
     }
