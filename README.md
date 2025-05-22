@@ -11,7 +11,7 @@ These are both unique to the user
 
 ```
 Content-Type: application/json
-Authentication: Bearer <access-token-here>
+Authorization: Bearer <access-token-here>
 ```
 
 #### Response `200 OK`
@@ -32,7 +32,7 @@ This can be used for traditional paging or for lazy loading
 #### Headers
 ```
 Content-Type: application/json
-Authentication: Bearer <access-token-here>
+Authorization: Bearer <access-token-here>
 ```
 
 #### Response `200 OK`
@@ -106,3 +106,14 @@ Content-Type: application/json
 ```
 #### Errors
 `404 Not Found`
+
+## General Errors
+---
+### JWT Expired - Not Implemented
+> When the JWT expires we expect to see a 401 with the following message. If the RefreshToken is still valid, calling `/users/refreshJwt` will return a fresh JWT.
+
+```
+{
+    "authentication_error" : "jwt_expired",
+}
+```
