@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CartonCaps.Core.Services.DeferredDeepLinking;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.NUnit.Composable;
+using Microsoft.Extensions.Logging;
 
 namespace CartonCaps.UnitTests.Services.DeferredLinking.DeferredLinkServiceTests
 {
@@ -16,6 +17,9 @@ namespace CartonCaps.UnitTests.Services.DeferredLinking.DeferredLinkServiceTests
 
         [Dependency]
         protected IDeepLinkClient DeepLinkClient;
+
+        [Dependency]
+        protected ILogger<DeferredLinkService> Logger;
 
         protected CancellationToken CancellationToken = default;
 
