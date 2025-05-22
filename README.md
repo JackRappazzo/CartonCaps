@@ -1,6 +1,3 @@
-## Wiki
-[https://github.com/JackRappazzo/CartonCaps/wiki/Carton-Caps](https://github.com/JackRappazzo/CartonCaps/wiki/Carton-Caps)
-
 # Referral API
 ## User Controller
 ---
@@ -121,7 +118,7 @@ Content-Type: application/json
 }
 ```
 
-### Internal Server Rerror
+### Internal Server Error
 > Any uncaught error will be automatically logged and the service will return the below message. In a future state we could return more detailed messages in the development environment
 
 `500`
