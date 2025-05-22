@@ -67,13 +67,14 @@ namespace CartonCaps.Api.Controllers
 
             var user = await userRepository.FetchUserById(userId, cancellationToken);
             var deferredLink = await referralCodeService.FetchValidReferralLink(user, cancellationToken);
-            
+
             //Manually append the referral.
             //The deferred link itself doesn't technically _need_ the referral code
             //Query params feel like something that could change often so putting them in the most flexible layer
             //makes sense to me.
             //Can switch to include this step in FetchValidReferralLink for completeness
             deferredLink = $"{deferredLink}?referral_code={user.ReferralCode}";
+            
             return Ok(new ReferralCodeAndLinkResponse()
             {
                 ReferralCode = user.ReferralCode,

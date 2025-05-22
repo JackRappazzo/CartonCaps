@@ -1,3 +1,4 @@
+using CartonCaps.Api.Exceptions;
 using CartonCaps.Core.Services.DeferredDeepLinking;
 using CartonCaps.Core.Services.DeferredLinking;
 using CartonCaps.Core.Services.Referrals;
@@ -26,6 +27,8 @@ builder.Services.AddScoped<IReferralRepository, MockReferralRepository>();
 
 var app = builder.Build();
 
+//Middleware
+app.UseMiddleware<GlobalErrorLogger>();
 
 
 // Configure the HTTP request pipeline.
