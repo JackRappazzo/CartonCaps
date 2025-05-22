@@ -117,3 +117,13 @@ Content-Type: application/json
     "authentication_error" : "jwt_expired",
 }
 ```
+
+### Internal Server Rerror
+> Any uncaught error will be automatically logged and the service will return the below message. In a future state we could return more detailed messages in the development environment
+
+`500`
+```
+{
+	"message": "An error occurred while processing the request"
+}
+```
