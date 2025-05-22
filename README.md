@@ -11,7 +11,7 @@ These are both unique to the user
 
 ```
 Content-Type: application/json
-Authentication: Bearer <access-token-here>
+Authorization: Bearer <access-token-here>
 ```
 
 #### Response `200 OK`
@@ -32,7 +32,7 @@ This can be used for traditional paging or for lazy loading
 #### Headers
 ```
 Content-Type: application/json
-Authentication: Bearer <access-token-here>
+Authorization: Bearer <access-token-here>
 ```
 
 #### Response `200 OK`
