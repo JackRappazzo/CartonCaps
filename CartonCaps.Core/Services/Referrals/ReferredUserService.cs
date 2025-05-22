@@ -36,7 +36,19 @@ namespace CartonCaps.Core.Services.Referrals
                     }
                     return r;
                 })
-                .OrderBy(r => r.ReferralState)
+                .OrderBy(r =>
+                {
+                    //TODO: Encapsulate this somewhere
+                    //I don't want to order by the enum value directly
+                    return r.ReferralState switch
+                    {
+                        ReferralState.Completed => 0,
+                        ReferralState.Pending => 1,
+                        ReferralState.NeedsAudit => 2,
+                        ReferralState.Denied => 3,
+                        _ => 4
+                    };
+                })
                 .ThenBy(r => r.CreatedOn)
                 .Skip(skip)
                 .Take(take);

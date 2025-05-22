@@ -15,23 +15,23 @@ namespace CartonCaps.Persistence.Models
         /// <summary>
         /// The referral is considered good and the user can receive credit
         /// </summary>
-        Completed = 0, 
+        Completed, 
         
         /// <summary>
         /// The referral has been created but hasn't met the criteria for completion yet
         /// </summary>
-        Pending = 1, 
+        Pending, 
         
         /// <summary>
         /// The referral needs to be reviewed by an auditing process
         /// The auditing process is not implemented in this example
         /// </summary>
-        NeedsAudit = 2, 
+        NeedsAudit, 
         
         /// <summary>
         /// The referral has been failed by an audit process or other criteria
         /// The auditing process is not implemented in this example
         /// </summary>
-        Denied = 3
+        Denied
     };
 }
