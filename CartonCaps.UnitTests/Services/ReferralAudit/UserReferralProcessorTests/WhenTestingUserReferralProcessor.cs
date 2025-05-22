@@ -7,6 +7,7 @@ using CartonCaps.Persistence.Repositories;
 using CartonCaps.ReferralAudit.Core.Services;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.NUnit.Composable;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace CartonCaps.UnitTests.Services.ReferralAudit.UserReferralProcessorTests
@@ -21,6 +22,7 @@ namespace CartonCaps.UnitTests.Services.ReferralAudit.UserReferralProcessorTests
         [Dependency] protected IIpThresholdEvaluator IpThresholdEvaluator;
         [Dependency] protected ISessionIdThresholdEvaluator SessionIdThresholdEvaluator;
         [Dependency] protected IAuditThresholdConfigurationFactory AuditThresholdConfigurationFactory;
+        [Dependency] protected ILogger<UserReferralProcessor> Logger;
 
         protected int SameIpThreshold = 2;
         protected int SameSessionIdThreshold = 2;

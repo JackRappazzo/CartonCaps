@@ -7,6 +7,7 @@ using CartonCaps.Core.Services.Referrals;
 using CartonCaps.Persistence.Repositories;
 using LeapingGorilla.Testing.Core.Attributes;
 using LeapingGorilla.Testing.NUnit.Composable;
+using Microsoft.Extensions.Logging;
 
 namespace CartonCaps.UnitTests.Services.Referrals.ReferralServiceTests
 {
@@ -17,6 +18,9 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralServiceTests
 
         [Dependency]
         protected IReferralRepository ReferralRepository;
+
+        [Dependency]
+        protected ILogger<ReferredUserService> Logger;
 
         protected CancellationToken CancellationToken = default;
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CartonCaps.Persistence.Models;
 using CartonCaps.Persistence.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace CartonCaps.ReferralAudit.Core.Services
 {
@@ -17,6 +18,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
         private readonly IIpThresholdEvaluator ipThresholdEvaluator;
         private readonly ISessionIdThresholdEvaluator sessionIdThresholdEvaluator;
         private readonly AuditThresholdConfiguration thresholdConfiguration;
+        private readonly ILogger<UserReferralProcessor> logger;
 
 
         public UserReferralProcessor(
@@ -25,7 +27,8 @@ namespace CartonCaps.ReferralAudit.Core.Services
             IIndividualReferralStateEvaluator stateEvaluator,
             IIpThresholdEvaluator ipThresholdEvaluator,
             ISessionIdThresholdEvaluator sessionIdThresholdEvaluator,
-            IAuditThresholdConfigurationFactory configFactory)
+            IAuditThresholdConfigurationFactory configFactory,
+            ILogger<UserReferralProcessor> logger)
         {
             this.userRepository = userRepository;
             this.referralRepository = referralRepository;
@@ -33,6 +36,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
             this.ipThresholdEvaluator = ipThresholdEvaluator;
             this.sessionIdThresholdEvaluator = sessionIdThresholdEvaluator;
             this.thresholdConfiguration = configFactory.Create();
+            this.logger = logger;
         }
 
         public async Task UpdateUsersReferrals(Guid userId, CancellationToken cancellationToken)
@@ -77,6 +81,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
                         {
                             // Log as an error and continue
                             //We do not want to throw if we can avoid it
+                            logger.LogError("Failed to update referral state of referral {referralId} for user {userId}. Continuing", user.Id, referral.Id);
                         }
                     }
 
@@ -89,6 +94,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
                     {
                         // Log as an error and continue
                         //We do not want to throw if we can avoid it
+                        logger.LogError("Failed to update referral state of referral {referralId} for user {userId}. Continuing", user.Id, filtered.Id);
                     }
                 }
             }

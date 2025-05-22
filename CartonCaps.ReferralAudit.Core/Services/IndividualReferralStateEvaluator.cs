@@ -42,6 +42,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
 
             if (userToCheck == null)
             {
+                //This is a big problem and we need to blow up over it. 
                 throw new InvalidOperationException($"User with id {referral.ReferredUserId} does not exist");
             }
 
