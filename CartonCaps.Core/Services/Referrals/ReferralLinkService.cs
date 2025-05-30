@@ -15,29 +15,39 @@ namespace CartonCaps.Core.Services.Referrals
     public class ReferralLinkService : IReferralLinkService
     {
         protected readonly IReferralLinkRepository referralLinkRepository;
+        protected readonly IUserRepository userRepository;
         protected readonly IDeferredLinkService deferredLinkService;
         protected readonly ILogger<ReferralLinkService> logger;
 
-        public ReferralLinkService(IReferralLinkRepository referralLinkRepository, IDeferredLinkService deferredLinkService, ILogger<ReferralLinkService> logger)
+        public ReferralLinkService(IReferralLinkRepository referralLinkRepository, IUserRepository userRepository, IDeferredLinkService deferredLinkService, ILogger<ReferralLinkService> logger)
         {
             this.referralLinkRepository = referralLinkRepository;
+            this.userRepository = userRepository;
             this.deferredLinkService = deferredLinkService;
             this.logger = logger;
         }
 
-        public async Task<string> FetchValidReferralLink(CartonCapsUser user, CancellationToken cancellationToken)
+        public async Task<string> FetchValidReferralLink(Guid userId, CancellationToken cancellationToken)
         {
             try
             {
-                var activeReferralLink = await referralLinkRepository.FetchUnexpiredReferralLinkByUserId(user.Id, cancellationToken);
+                var activeReferralLink = await referralLinkRepository.FetchUnexpiredReferralLinkByUserId(userId, cancellationToken);
 
                 if (activeReferralLink == null)
                 {
-                    var referralCode = user.ReferralCode;
+                    var referralCode = await userRepository.FetchUsersReferralCode(userId, cancellationToken);
+
+                    if(string.IsNullOrEmpty(referralCode))
+                    {
+                        logger.LogWarning("User with ID {userId} does not exist or does not have a referral code. Cannot create referral link.", userId);
+                        return string.Empty;
+                    }
 
                     var newLink = await deferredLinkService.CreateReferralDeepLink(referralCode, cancellationToken);
 
-                    await referralLinkRepository.InsertReferralLink(user.Id, newLink, DateTime.Now + TimeSpan.FromDays(60), cancellationToken);
+                    newLink += "?referral_code=" + referralCode;
+
+                    await referralLinkRepository.InsertReferralLink(userId, newLink, DateTime.Now + TimeSpan.FromDays(60), cancellationToken);
                     return newLink;
                 }
                 else
@@ -47,7 +57,7 @@ namespace CartonCaps.Core.Services.Referrals
             }
             catch(Exception ex)
             {
-                logger.LogError(ex, "An error occurred while fetching referral links for user: {userId}. Returning empty string", user.Id);
+                logger.LogError(ex, "An error occurred while fetching referral links for user: {userId}. Returning empty string", userId);
                 return string.Empty;
             }
         }

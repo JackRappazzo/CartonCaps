@@ -5,32 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using CartonCaps.Persistence.Models;
 using LeapingGorilla.Testing.Core.Attributes;
+using NSubstitute.ReturnsExtensions;
 
 namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.FetchTests
 {
     public abstract class WhenTestingFetchValidLink : WhenTestingReferralLinkService
     {
-        protected CartonCapsUser User;
+        protected Guid UserId;
 
         protected string Result;
 
         [Given]
-        public void UserIsSet()
+        public void UserIdIsSet()
         {
-            User = new CartonCapsUser()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Sam",
-                LastName = "Pullman",
-                CreatedOn = DateTime.Now,
-                ReferralCode = "ABC123de",
-            };
+            UserId = Guid.NewGuid();
+        }
+
+        [Given]
+        public void RepositoryDoesNotReturnALink()
+        {
+            ReferralLinkRepository.FetchUnexpiredReferralLinkByUserId(UserId, CancellationToken)
+                .ReturnsNull();
         }
 
         [When]
         public async Task FetchValidLinkIsCalled()
         {
-            Result = await ReferralLinkService.FetchValidReferralLink(User, CancellationToken);
+            Result = await ReferralLinkService.FetchValidReferralLink(UserId, CancellationToken);
         }
     }
 }

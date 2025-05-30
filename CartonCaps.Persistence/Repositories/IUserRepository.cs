@@ -14,5 +14,6 @@ namespace CartonCaps.Persistence.Repositories
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<CartonCapsUser?> FetchUserById(Guid userId, CancellationToken cancellationToken);
+        Task<string?> FetchUsersReferralCode(Guid userId, CancellationToken cancellationToken);
     }
 }
