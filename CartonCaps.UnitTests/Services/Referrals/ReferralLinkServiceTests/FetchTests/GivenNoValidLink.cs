@@ -14,28 +14,31 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
 {
     public class GivenNoValidLink : WhenTestingFetchValidLink
     {
-        string ExpectedReferralUrl = "https://sample.com/app/abc123DE";
+        string ExpectedReferralCode = "abc123DE";
+        string OriginalDeferredLink = "https://sample.com/app/abc123DE";
+        string ExpectedReferralUrl = "https://sample.com/app/abc123DE?referral_code=abc123DE";
 
         protected override ComposedTest ComposeTest() => TestComposer
-            .Given(UserIsSet)
+            .Given(UserIdIsSet)
             .And(RepositoryDoesNotReturnALink)
+            .And(UserRepositoryFetchesReferralCode)
             .And(DeferredLinkServiceCanCreateLink)
             .When(FetchValidLinkIsCalled)
             .Then(ShouldCallInsertLink)
             .And(ShouldReturnExpectedLink);
 
         [Given]
-        public void RepositoryDoesNotReturnALink()
+        public void UserRepositoryFetchesReferralCode()
         {
-            ReferralLinkRepository.FetchUnexpiredReferralLinkByUserId(User.Id, CancellationToken)
-                .ReturnsNull();
+            UserRepository.FetchUsersReferralCode(UserId, CancellationToken)
+                .Returns(ExpectedReferralCode);
         }
 
         [Given]
         public void DeferredLinkServiceCanCreateLink()
         {
-            DeferredLinkService.CreateReferralDeepLink(User.ReferralCode, CancellationToken)
-                .Returns(ExpectedReferralUrl);
+            DeferredLinkService.CreateReferralDeepLink(ExpectedReferralCode, CancellationToken)
+                .Returns(OriginalDeferredLink);
         }
 
         [Then]
@@ -44,7 +47,7 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
             ReferralLinkRepository
                 .Received(1)
                 .InsertReferralLink(
-                    User.Id,
+                    UserId,
                     ExpectedReferralUrl,
                     expiration: Arg.Is<DateTime>(d => d > DateTime.Now + TimeSpan.FromDays(59)), //Leaving some leeway here
                                                                                                  //Need a better way to test expiration?

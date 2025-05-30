@@ -13,10 +13,10 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
 {
     public class GivenValidLinkExists : WhenTestingFetchValidLink
     {
-        string ExpectedReferralUrl = "https://sample.com/app/link/abc123fg";
+        string ExpectedReferralUrl = "https://sample.com/app/link/abc123fg?referral_code=abc123fg";
 
         protected override ComposedTest ComposeTest() => TestComposer
-            .Given(UserIsSet)
+            .Given(UserIdIsSet)
             .And(RepositoryReturnsExistingReferralLink)
             .When(FetchValidLinkIsCalled)
             .Then(ShouldNotCreateReferral)
@@ -26,11 +26,11 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
         [Given]
         public void RepositoryReturnsExistingReferralLink()
         {
-            ReferralLinkRepository.FetchUnexpiredReferralLinkByUserId(User.Id, CancellationToken)
+            ReferralLinkRepository.FetchUnexpiredReferralLinkByUserId(UserId, CancellationToken)
                 .Returns(new ReferralLink()
                 {
                     Id = Guid.NewGuid(),
-                    UserId = User.Id,
+                    UserId = UserId,
                     CreatedOn = DateTime.Now - TimeSpan.FromDays(5),
                     ExpiresOn = DateTime.Now + TimeSpan.FromDays(55),
                     Url = ExpectedReferralUrl
