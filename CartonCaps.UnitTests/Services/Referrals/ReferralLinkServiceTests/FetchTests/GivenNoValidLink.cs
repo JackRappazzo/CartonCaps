@@ -25,7 +25,8 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
             .And(DeferredLinkServiceCanCreateLink)
             .When(FetchValidLinkIsCalled)
             .Then(ShouldCallInsertLink)
-            .And(ShouldReturnExpectedLink);
+            .And(ShouldReturnExpectedReferralCode)
+            .And(ShouldReturnExpectedUrl);
 
         [Given]
         public void UserRepositoryFetchesReferralCode()
@@ -55,9 +56,15 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
         }
 
         [Then]
-        public void ShouldReturnExpectedLink()
+        public void ShouldReturnExpectedUrl()
         {
-            Assert.That(Result, Is.EqualTo(ExpectedReferralUrl));
+            Assert.That(Result.deferredLink, Is.EqualTo(ExpectedReferralUrl));
+        }
+
+        [Then]
+        public void ShouldReturnExpectedReferralCode()
+        {
+            Assert.That(Result.referralCode, Is.EqualTo("abc123fg"));
         }
     }
 }

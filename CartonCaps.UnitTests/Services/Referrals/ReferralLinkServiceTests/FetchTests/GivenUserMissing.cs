@@ -30,7 +30,8 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
         public void ShouldReturnEmpty()
         {
 
-            Assert.That(Result, Is.Empty);
+            Assert.That(Result.referralCode, Is.Empty);
+            Assert.That(Result.deferredLink, Is.Empty); 
         }
     }
 }

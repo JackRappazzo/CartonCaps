@@ -46,8 +46,8 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
         [Given]
         public void ReferralLinkServiceReturnsLink()
         {
-            ReferralLinkService.FetchValidReferralLink(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-                .Returns(ExpectedDeferredLink);
+            ReferralLinkService.FetchReferralCodeAndValidLink(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
+                .Returns((ReferralCode, ExpectedDeferredLink));
         }
 
         [Then]

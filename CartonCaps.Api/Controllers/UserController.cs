@@ -65,8 +65,7 @@ namespace CartonCaps.Api.Controllers
             //Mock for User.Identity.GetUserId()
             var userId = CartonCapsUser.MockLoggedInUserId;
 
-            var referralCode = await userRepository.FetchUsersReferralCode(userId, cancellationToken);
-            var deferredLink = await referralCodeService.FetchValidReferralLink(userId, cancellationToken);
+            (var referralCode, var deferredLink) = await referralCodeService.FetchReferralCodeAndValidLink(userId, cancellationToken);
             
             return Ok(new ReferralCodeAndLinkResponse()
             {
