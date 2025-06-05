@@ -42,6 +42,12 @@ namespace CartonCaps.ReferralAudit.Core.Services
         public async Task UpdateUsersReferrals(Guid userId, CancellationToken cancellationToken)
         {
             var user = await userRepository.FetchUserById(userId, cancellationToken);
+            if(user == null)
+            {
+                logger.LogError("User with ID {userId} not found. Skipping referral processing.", userId);
+                return;
+            }
+
             var userReferrals = await referralRepository.GetReferredUsersByReferringId(userId, cancellationToken);
 
             //Only proceed if we have referrals that are Pending

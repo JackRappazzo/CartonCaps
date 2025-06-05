@@ -101,5 +101,10 @@ namespace CartonCaps.Persistence.Repositories
         {
             return userStore.Where(u => u.Id == userId).FirstOrDefault();
         }
+
+        public async Task<string?> FetchUsersReferralCode(Guid userId, CancellationToken cancellationToken)
+        {
+            return userStore.Where(u => u.Id == userId).FirstOrDefault()?.ReferralCode;
+        }
     }
 }
