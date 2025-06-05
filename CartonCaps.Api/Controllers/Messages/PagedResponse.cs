@@ -26,6 +26,6 @@
         /// <summary>
         /// The collection of items
         /// </summary>
-        public virtual IEnumerable<T>  Items { get; set; }
+        public virtual required IEnumerable<T>  Items { get; set; }
     }
 }

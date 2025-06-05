@@ -53,7 +53,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
             //Only proceed if we have referrals that are Pending
             //We do NOT filter out Completed referrals yet since they are still
             //relevant to our filters
-            if (userReferrals.Where(r => r.ReferralState == ReferralState.Pending).Any())
+            if (userReferrals.Where(r => r.ReferralState == ReferralState.Pending).Any() )
             {
 
                 var ipThresholdFailureGuids = ipThresholdEvaluator.GetReferralIdsThatExceedIpThreshold(

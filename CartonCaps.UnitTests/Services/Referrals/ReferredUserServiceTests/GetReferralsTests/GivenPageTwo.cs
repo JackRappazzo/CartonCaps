@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using CartonCaps.Persistence.Models;
@@ -52,7 +53,8 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
                         ReferralState.Completed => 0,
                         ReferralState.Pending => 1,
                         ReferralState.NeedsAudit => 2,
-                        ReferralState.Denied => 3
+                        ReferralState.Denied => 3,
+                        _ => 4
                     };
                 })
                 .ThenBy(r => r.CreatedOn)
@@ -68,7 +70,8 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferredUserServiceTests.GetRe
                         ReferralState.Completed => 0,
                         ReferralState.Pending => 1,
                         ReferralState.NeedsAudit => 2,
-                        ReferralState.Denied => 3
+                        ReferralState.Denied => 3,
+                        _ => 4
                     };
                 })
                 .ThenBy(r => r.CreatedOn)

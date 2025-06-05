@@ -5,7 +5,7 @@ namespace CartonCaps.Api.Controllers.Messages
     [JsonObject]
     public class DeferredLinkResponse
     {
-        public string Destination {  get; set; }
-        public Dictionary<string, object> Metadata { get; set; }
+        public required string Destination {  get; set; }
+        public required Dictionary<string, object> Metadata { get; set; }
     }
 }

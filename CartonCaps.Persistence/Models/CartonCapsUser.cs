@@ -43,7 +43,7 @@ namespace CartonCaps.Persistence.Models
         /// <summary>
         /// The user's current referral code
         /// </summary>
-        public string ReferralCode { get; set; }
+        public string? ReferralCode { get; set; }
 
         /// <summary>
         /// Date of birth

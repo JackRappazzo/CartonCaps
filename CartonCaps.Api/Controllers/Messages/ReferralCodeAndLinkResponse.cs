@@ -9,11 +9,11 @@
         /// <summary>
         /// Referral code
         /// </summary>
-        public string ReferralCode { get; set; }
+        public required string ReferralCode { get; set; }
 
         /// <summary>
         /// Deferred deep link that points to the referral page
         /// </summary>
-        public string DeferredLink { get; set; }
+        public required string DeferredLink { get; set; }
     }
 }
