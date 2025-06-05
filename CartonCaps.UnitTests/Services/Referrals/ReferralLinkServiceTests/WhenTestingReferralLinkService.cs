@@ -24,6 +24,9 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests
         protected IDeferredLinkService DeferredLinkService;
 
         [Dependency]
+        protected IUserRepository UserRepository;
+
+        [Dependency]
         protected ILogger<ReferralLinkService> Logger;
 
         protected CancellationToken CancellationToken = default;
