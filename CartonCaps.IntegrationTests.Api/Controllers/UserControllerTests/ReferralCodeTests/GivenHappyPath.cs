@@ -16,18 +16,15 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
 {
     public class GivenHappyPath : WhenTestingGetReferralCode
     {
-        protected string DeferredLink = "https://sample.com/abcd1234";
         protected string ExpectedDeferredLink = $"https://sample.com/abcd1234?referral_code=123abcde";
-        protected CartonCapsUser User = new CartonCapsUser()
-        {
-            Id = Guid.NewGuid(),
-            ReferralCode = "123abcde",
-        };
+        protected Guid UserId = Guid.NewGuid();
+        protected string ReferralCode = "123abcde";
+
 
         protected override ComposedTest ComposeTest() => TestComposer
             .Given(ApplicationIsRunning)
             .And(RequestUrlIsSet)
-            .And(UserRepositoryFindsUser)
+            .And(UserRepositoryFindsReferralCode)
             .And(ReferralLinkServiceReturnsLink)
             .When(GetIsCalled)
             .Then(ShouldReturnOk)
@@ -40,17 +37,17 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
         }
 
         [Given]
-        public void UserRepositoryFindsUser()
+        public void UserRepositoryFindsReferralCode()
         {
-            UserRepository.FetchUserById(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-                .Returns(User);
+            UserRepository.FetchUsersReferralCode(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
+                .Returns(ReferralCode);
         }
 
         [Given]
         public void ReferralLinkServiceReturnsLink()
         {
-            ReferralLinkService.FetchValidReferralLink(Arg.Is<CartonCapsUser>(u=>u.ReferralCode == "123abcde"), Arg.Any<CancellationToken>())
-                .Returns(DeferredLink);
+            ReferralLinkService.FetchValidReferralLink(Arg.Any<Guid>(), Arg.Any<CancellationToken>())
+                .Returns(ExpectedDeferredLink);
         }
 
         [Then]
@@ -58,7 +55,7 @@ namespace CartonCaps.IntegrationTests.Api.Controllers.UserControllerTests.Referr
         {
             var payload = JsonConvert.DeserializeObject<ReferralCodeAndLinkResponse>(await Response.Content.ReadAsStringAsync());
             Assert.That(payload.DeferredLink, Is.EqualTo(ExpectedDeferredLink));
-            Assert.That(payload.ReferralCode, Is.EqualTo(User.ReferralCode));
+            Assert.That(payload.ReferralCode, Is.EqualTo(ReferralCode));
         }
     }
 }
