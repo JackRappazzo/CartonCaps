@@ -27,20 +27,19 @@ namespace CartonCaps.Core.Services.Referrals
             this.logger = logger;
         }
 
-        public async Task<string> FetchValidReferralLink(Guid userId, CancellationToken cancellationToken)
+        public async Task<(string referralCode, string deferredLink)> FetchReferralCodeAndValidLink(Guid userId, CancellationToken cancellationToken)
         {
             try
             {
                 var activeReferralLink = await referralLinkRepository.FetchUnexpiredReferralLinkByUserId(userId, cancellationToken);
+                var referralCode = await userRepository.FetchUsersReferralCode(userId, cancellationToken);
 
                 if (activeReferralLink == null)
                 {
-                    var referralCode = await userRepository.FetchUsersReferralCode(userId, cancellationToken);
-
                     if(string.IsNullOrEmpty(referralCode))
                     {
                         logger.LogWarning("User with ID {userId} does not exist or does not have a referral code. Cannot create referral link.", userId);
-                        return string.Empty;
+                        return (string.Empty, string.Empty);
                     }
 
                     var newLink = await deferredLinkService.CreateReferralDeepLink(referralCode, cancellationToken);
@@ -48,17 +47,17 @@ namespace CartonCaps.Core.Services.Referrals
                     newLink += "?referral_code=" + referralCode;
 
                     await referralLinkRepository.InsertReferralLink(userId, newLink, DateTime.Now + TimeSpan.FromDays(60), cancellationToken);
-                    return newLink;
+                    return (referralCode, newLink);
                 }
                 else
                 {
-                    return activeReferralLink.Url;
+                    return (referralCode ?? string.Empty, activeReferralLink.Url);
                 }
             }
             catch(Exception ex)
             {
                 logger.LogError(ex, "An error occurred while fetching referral links for user: {userId}. Returning empty string", userId);
-                return string.Empty;
+                return (string.Empty, string.Empty);
             }
         }
     }

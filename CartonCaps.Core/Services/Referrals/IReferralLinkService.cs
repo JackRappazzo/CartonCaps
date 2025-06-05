@@ -13,6 +13,6 @@ namespace CartonCaps.Core.Services.Referrals
         /// Ensures that a valid referral link can be retrieved
         /// Handles expiration and renewal
         /// </summary>
-        Task<string> FetchValidReferralLink(Guid userId, CancellationToken cancellationToken);
+        Task<(string referralCode, string deferredLink)> FetchReferralCodeAndValidLink(Guid userId, CancellationToken cancellationToken);
     }
 }

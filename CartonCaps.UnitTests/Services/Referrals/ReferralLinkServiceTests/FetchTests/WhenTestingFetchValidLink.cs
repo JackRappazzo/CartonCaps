@@ -13,7 +13,7 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
     {
         protected Guid UserId;
 
-        protected string Result;
+        protected (string referralCode, string deferredLink) Result;
 
         [Given]
         public void UserIdIsSet()
@@ -31,7 +31,7 @@ namespace CartonCaps.UnitTests.Services.Referrals.ReferralLinkServiceTests.Fetch
         [When]
         public async Task FetchValidLinkIsCalled()
         {
-            Result = await ReferralLinkService.FetchValidReferralLink(UserId, CancellationToken);
+            Result = await ReferralLinkService.FetchReferralCodeAndValidLink(UserId, CancellationToken);
         }
     }
 }
