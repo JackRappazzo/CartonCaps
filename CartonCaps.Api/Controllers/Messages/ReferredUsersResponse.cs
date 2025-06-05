@@ -13,7 +13,7 @@ namespace CartonCaps.Api.Controllers.Messages
         /// <summary>
         /// Collection of users for display in the referred users page
         /// </summary>
-        [JsonProperty("refferedUsers")]
+        [JsonProperty("referredUsers")]
         public override IEnumerable<ReferredUser> Items { get => base.Items; set => base.Items = value; }
 
     }

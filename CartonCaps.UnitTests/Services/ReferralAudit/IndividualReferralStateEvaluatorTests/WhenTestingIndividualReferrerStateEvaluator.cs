@@ -40,7 +40,7 @@ namespace CartonCaps.UnitTests.Services.ReferralAudit.IndividualReferralStateEva
                    new AuditThresholdConfiguration()
                    {
                        LoginThreshold = LoginThreshold,
-                       PurchaseThreadhold = PurchaseThreshold,
+                       PurchaseThreshold = PurchaseThreshold,
                        SameIpThreshold = 2,
                        SameMacThreshold = 2,
                        SameSessionThreshold = 2,

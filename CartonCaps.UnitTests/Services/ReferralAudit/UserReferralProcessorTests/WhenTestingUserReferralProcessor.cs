@@ -40,7 +40,7 @@ namespace CartonCaps.UnitTests.Services.ReferralAudit.UserReferralProcessorTests
                    new AuditThresholdConfiguration()
                    {
                        LoginThreshold = TimeSpan.FromDays(1),
-                       PurchaseThreadhold  = 10d,
+                       PurchaseThreshold  = 10d,
                        SameIpThreshold = 2,
                        SameMacThreshold = 2,
                        SameSessionThreshold = 2,

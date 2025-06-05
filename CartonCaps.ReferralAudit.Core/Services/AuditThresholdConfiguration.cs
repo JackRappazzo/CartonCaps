@@ -13,6 +13,6 @@ namespace CartonCaps.ReferralAudit.Core.Services
         public int SameIpThreshold { get; set; }
 
         public TimeSpan LoginThreshold { get; set; }
-        public double PurchaseThreadhold { get; set; }
+        public double PurchaseThreshold { get; set; }
     }
 }

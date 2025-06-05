@@ -79,7 +79,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
             //Do not throw, just assume 0
             var purchaseSum = (await purchaseHistoryRepository.GetPurchaseHistoryByUserId(userToCheck.Id, cancellationToken))?.AmountSpentUsd ?? 0;
 
-            return purchaseSum > thresholdConfiguration.PurchaseThreadhold;
+            return purchaseSum > thresholdConfiguration.PurchaseThreshold;
         }
     }
 }

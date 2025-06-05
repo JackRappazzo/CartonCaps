@@ -23,7 +23,7 @@ namespace CartonCaps.ReferralAudit.Core.Services
             return new AuditThresholdConfiguration()
             {
                 LoginThreshold = TimeSpan.FromDays(1),
-                PurchaseThreadhold = 10d,
+                PurchaseThreshold = 10d,
                 SameIpThreshold = 10,
                 SameMacThreshold = 3,
                 SameSessionThreshold = 3
